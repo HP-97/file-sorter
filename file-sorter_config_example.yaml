@@ -1,0 +1,13 @@
+# Example configuration file
+
+# Define master destination folders here 
+master_dest_folders:
+  pictures: &pictures "/Users/{User}/Pictures"
+
+# Target folder to track any new changes
+folder_to_track: "/Users/{User}/Downloads"
+
+# extension definitions to look out for. E.g. extension: destination folder.
+# Use YAML anchors and aliases for good DRY practice
+entries:
+  .jpg: *pictures
