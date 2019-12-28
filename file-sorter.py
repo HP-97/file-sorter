@@ -10,10 +10,11 @@ from watchdog.events import FileSystemEventHandler
 log = logging.getLogger(__name__)
 script_name = os.path.splitext(os.path.basename(__file__))[0]
 logging.basicConfig(filename="{}.log".format(script_name),
-                    format='%(asctime)s.%(msecs)03d [%(funcName)s:] [%(levelname)s] %(message)s',
+                    format='%(asctime)s.%(msecs)03d [%(funcName)s:%(lineno)d] [%(levelname)s] %(message)s',
                     datefmt='%Y-%m-%d %H:%M:%S',
                     filemode='w')
 
+# Log level checking
 def check_log_level(log_level):
     log_levels = ["NOTSET", "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
     if log_level.upper() not in log_levels:
@@ -34,7 +35,7 @@ def set_log_level(log_level):
     elif log_level.upper() == "CRITICAL":
         return log_level.CRITICAL
     else:
-        log.error("{} is not a valid log level. Returning None".format(log_level))
+        log.critical("{} is not a valid log level. Returning None".format(log_level))
         return None
 
 class FileHandler(FileSystemEventHandler):
@@ -90,7 +91,7 @@ if __name__ == "__main__":
             exit(1)
     # Handle config
     if not os.path.isfile(args.config):
-        log.error("{} config file could not be found. Exiting".format(args.config))
+        log.error("\"{}\" config file could not be found. Exiting".format(args.config))
         exit(1)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 
     event_handler = FileHandler(args.config)
