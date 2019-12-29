@@ -7,9 +7,11 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 # Create and configure logger
+# TODO: Make log path configurable
 log = logging.getLogger(__name__)
 script_name = os.path.splitext(os.path.basename(__file__))[0]
-logging.basicConfig(filename="{}.log".format(script_name),
+dirpath = os.path.dirname(__file__)
+logging.basicConfig(filename="{}/{}.log".format(dirpath, script_name),
                     format='%(asctime)s.%(msecs)03d [%(funcName)s:%(lineno)d] [%(levelname)s] %(message)s',
                     datefmt='%Y-%m-%d %H:%M:%S',
                     filemode='w')
